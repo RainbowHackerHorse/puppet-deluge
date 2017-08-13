@@ -8,7 +8,7 @@ class ubuntu_upstart {
         mode    => '0644',
         owner   => root,
         group   => root,
-        source  => 'puppet:///modules/deluge/ubuntu/deluged.conf',
+        source  => 'puppet:///modules/deluge/ubuntu_upstart/deluged.conf',
         require => [Package['deluged'], User['deluge']];
 
     '/etc/init/deluge-web.conf':
@@ -16,7 +16,7 @@ class ubuntu_upstart {
         mode    => '0644',
         owner   => root,
         group   => root,
-        source  => 'puppet:///modules/deluge/ubuntu/deluge-web.conf',
+        source  => 'puppet:///modules/deluge/ubuntu_upstart/deluge-web.conf',
         require => [Package['deluge-web'], User['deluge']];
   }
   service {
