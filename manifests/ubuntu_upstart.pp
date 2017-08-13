@@ -30,4 +30,15 @@ class ubuntu_upstart {
       provider  => upstart,
       subscribe => File['/etc/init/deluge-web.conf'];
   }
+  logrotate::rule { 'deluge':
+    path          => '/var/log/deluge/*.log',
+    rotate        => 4,
+    rotate_every  => week,
+    sharedscripts => true,
+    missingok     => true,
+    delaycompress => true,
+    ifempty       => false,
+    compress      => true,
+    postrotate    => 'initctl restart deluged ; initctl restart deluge-web';
+}
 }
