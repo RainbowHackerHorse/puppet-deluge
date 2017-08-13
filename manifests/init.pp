@@ -28,24 +28,22 @@ class deluge {
 
     file {
         '/etc/init/deluged.conf':
-            ensure  => file,
-            mode    => '0644',
-            owner   => root,
-            group   => root,
-            source  => 'puppet:///modules/deluge/deluged.conf',
-            require => [Package['deluged'], User['deluge']];
+            ensure => file,
+            mode   => '0644',
+            owner  => root,
+            group  => root,
+            source => 'puppet:///modules/deluge/deluged.conf';
 
         '/etc/init/deluge-web.conf':
-            ensure  => file,
-            mode    => '0644',
-            owner   => root,
-            group   => root,
-            source  => 'puppet:///modules/deluge/deluge-web.conf',
-            require => [Package['deluge-web'], User['deluge']];
+            ensure => file,
+            mode   => '0644',
+            owner  => root,
+            group  => root,
+            source => 'puppet:///modules/deluge/deluge-web.conf';
 
         '/var/log/deluge':
             ensure => directory,
-            mode   => 0750,
+            mode   => '0750',
             owner  => deluge,
             group  => deluge;
 
@@ -53,14 +51,14 @@ class deluge {
 
     service {
         'deluged':
-            ensure   => running,
-            provider => upstart,
-            subscribe  => File['/etc/init/deluged.conf'];
+            ensure    => running,
+            provider  => upstart,
+            subscribe => File['/etc/init/deluged.conf'];
 
         'deluge-web':
-            ensure     => running,
-            provider => upstart,
-            subscribe  => File['/etc/init/deluge-web.conf'];
+            ensure    => running,
+            provider  => upstart,
+            subscribe => File['/etc/init/deluge-web.conf'];
 
     }
 
